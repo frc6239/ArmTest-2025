@@ -16,4 +16,37 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class ArmSystemConstants {
+    // Units are shows between <>
+    // Gearbox ratio of arm motor <unitless>
+    public static final int kArmGearBoxRatio = 100;
+
+    // The arm rotates from 0 upto 120 degrees
+    // Calculate arm rotation distance in rotations <rotations> 
+    public static final double kArmRotationDistance = 120/360;
+
+    // Set position ranges to rotate arm
+    // Note:  Hard stop is at zero postion  
+    public static final double kMaxPosition = kArmRotationDistance * kArmGearBoxRatio;
+    public static final double kMinPosition = 0;
+
+    public static final double kLiftPosition = 45/360 * kArmGearBoxRatio;
+
+    // Set initial arm increment
+    public static final double kArmIncrement = 10 / 360 * kArmGearBoxRatio;
+    
+    // Time takes arm to rotate through range <seconds> 
+    public static final double kArmRotationTime = 3.0;
+    // Arm revolutions per minute = rotation time / ( 60 * rotation range) <rpm>
+    // Note:  even though arm does not rotate one full rotation we need to
+    //         include it in calculation since we are calculating revolutions per minute
+    public static final double kArmRpm = kArmRotationTime / ( 60 * kArmRotationDistance) ;
+    // The motor is on the other side of the gear box and runs faster than the arm
+    // To calculate motor rpm multiple the arm rpm by the gearbox ratios <rpm>
+    public static final double kMotorRpm = kArmRpm * kArmGearBoxRatio;
+
+    public static final int kCANidMotor = 15;
+    
+  }
 }
