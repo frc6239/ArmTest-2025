@@ -24,7 +24,7 @@ public final class Constants {
 
     // The arm rotates from 0 upto 120 degrees
     // Calculate arm rotation distance in rotations <rotations> 
-    public static final double kArmRotationDistance = 120/360;
+    public static final double kArmRotationDistance = 125/360;
 
     // Set position ranges to rotate arm
     // Note:  Hard stop is at zero postion  
