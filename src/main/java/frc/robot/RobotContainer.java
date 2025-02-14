@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ArmSystemConstants;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -37,6 +38,7 @@ public class RobotContainer {
     SmartDashboard.putData("Deploy arm", Commands.runOnce(m_armSubsystem::deploy, m_armSubsystem));
     SmartDashboard.putData("Lift robot", Commands.runOnce(m_armSubsystem::lift, m_armSubsystem));
     SmartDashboard.putData("Reset arm encoder", Commands.runOnce(m_armSubsystem::resetEncoder));
+    SmartDashboard.putData("Retract", Commands.runOnce(m_armSubsystem::retract,m_armSubsystem));
   }
 
   /**
@@ -55,7 +57,10 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_armSubsystem.exampleMethodCommand());
+    // m_driverController.b().whileTrue(m_armSubsystem.exampleMethodCommand());
+    m_driverController.x().onTrue(Commands.runOnce(() -> { m_armSubsystem.setPosition(ArmSystemConstants.kMaxPosition);}, m_armSubsystem));
+    m_driverController.a().onTrue(Commands.runOnce(() -> { m_armSubsystem.setPosition(ArmSystemConstants.kLiftPosition);}, m_armSubsystem));
+    m_driverController.b().onTrue(Commands.runOnce(() -> { m_armSubsystem.setPosition(ArmSystemConstants.kMinPosition);}, m_armSubsystem));
   }
 
   /**

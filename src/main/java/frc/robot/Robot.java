@@ -52,6 +52,12 @@ public class Robot extends TimedRobot {
       // Reset the encoder position to 0
       m_robotContainer.m_armSubsystem.resetEncoder();
     }
+    if (SmartDashboard.getBoolean("Arm Enabled", true)) {
+      m_robotContainer.m_armSubsystem.Enabled();
+      
+    } else {
+      m_robotContainer.m_armSubsystem.disabled();
+    }
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

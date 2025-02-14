@@ -38,8 +38,8 @@ public class ArmSubsystem extends SubsystemBase {
     m_motor = new SparkMax(ArmSystemConstants.kCANidMotor, MotorType.kBrushless);
     m_closedLoopController = m_motor.getClosedLoopController();
     m_encoder = m_motor.getEncoder();
-
-    m_enabled = false;
+this.Enabled();
+   // m_enabled = true;
 
     /*
      * Create a new SPARK MAX configuration object. This will store the
@@ -65,7 +65,7 @@ public class ArmSubsystem extends SubsystemBase {
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         // Set PID values for position control. We don't need to pass a closed
         // loop slot, as it will default to slot 0.
-        .p(0.01)
+        .p(ArmSystemConstants.kP)
         .i(0)
         .d(0)
         .outputRange(-1, 1);
@@ -94,9 +94,16 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.setDefaultNumber("Arm Increment", ArmSystemConstants.kArmIncrement);
     
     SmartDashboard.setDefaultNumber("Target Position", ArmSystemConstants.kMinPosition);
-    SmartDashboard.setDefaultBoolean("Arm Enabled", false);
+    SmartDashboard.setDefaultBoolean("Arm Enabled", true);
     SmartDashboard.setDefaultBoolean("Reset Encoder", false);
 
+  }
+
+  public void Enabled() {
+    m_enabled = true;
+  }
+  public void disabled() {
+    m_enabled = false;
   }
 
   /**
@@ -135,6 +142,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void setPosition(double targetPosition) {
     if (m_enabled) {
+      System.out.println(" In set position " + targetPosition);
        m_closedLoopController.setReference(targetPosition, ControlType.kMAXMotionPositionControl,
           ClosedLoopSlot.kSlot0);
     } else {
