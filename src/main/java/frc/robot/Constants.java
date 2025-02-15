@@ -44,11 +44,11 @@ public final class Constants {
     // Arm revolutions per minute = rotation time / ( 60 * rotation range) <rpm>
     // Note:  even though arm does not rotate one full rotation we need to
     //         include it in calculation since we are calculating revolutions per minute
-    public static final double kArmRpm = 2000.0/kArmGearBoxRatio; // kArmRotationTime / ( 60 * kArmRotationDistance) ;
+    public static final double kArmRpm = kArmRotationDistance/kArmRotationTime * 60; //2000.0/kArmGearBoxRatio; // kArmRotationTime / ( 60 * kArmRotationDistance) ;
     // The motor is on the other side of the gear box and runs faster than the arm
     // To calculate motor rpm multiple the arm rpm by the gearbox ratios <rpm>
     public static final double kMotorRpm = kArmRpm * kArmGearBoxRatio;
-    public static final double kMotorRpmAcc = 5*kMotorRpm;
+    public static final double kMotorRpmAcc = kMotorRpm/60;
 
     public static final int kCANidMotor = 15;
     
